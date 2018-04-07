@@ -118,17 +118,17 @@ func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
 		}
 		if len(notepad.Password) == 0 {
 			ctx.Response.Header.SetContentType("text/html; charset=utf-8")
-			t, _ := template.ParseFiles("static/index.html")
+			t, _ := template.ParseFiles(cmd.staticPath+"static/index.html")
 			t.Execute(ctx, notepad)
 		} else {
 			password := ctx.Request.Header.Cookie("password_" + notepad.Id)
 			if string(password) == notepad.Password {
 				ctx.Response.Header.SetContentType("text/html; charset=utf-8")
-				t, _ := template.ParseFiles("static/index.html")
+				t, _ := template.ParseFiles(cmd.staticPath+"static/index.html")
 				t.Execute(ctx, notepad)
 			} else {
 				ctx.Response.Header.SetContentType("text/html; charset=utf-8")
-				t, _ := template.ParseFiles("static/password.html")
+				t, _ := template.ParseFiles(cmd.staticPath+"static/password.html")
 				t.Execute(ctx, notepad)
 			}
 		}
